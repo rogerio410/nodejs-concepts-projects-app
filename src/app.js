@@ -15,8 +15,8 @@ app.get("/repositories", (request, response) => {
 });
 
 app.post("/repositories", (request, response) => {
-  const { title, url, tech } = request.body
-  const repository = { id: uuid(), title, url, tech, likes: 0 }
+  const { title, url, techs } = request.body
+  const repository = { id: uuid(), title, url, techs, likes: 0 }
 
   repositories.push(repository)
 
@@ -25,7 +25,7 @@ app.post("/repositories", (request, response) => {
 
 app.put("/repositories/:id", (request, response) => {
   const { id } = request.params
-  const { title, url, tech } = request.body
+  const { title, url, techs } = request.body
   const repoIndex = repositories.findIndex(repo => repo.id === id)
 
   if (repoIndex < 0) {
@@ -33,7 +33,7 @@ app.put("/repositories/:id", (request, response) => {
   }
 
   likes = repositories[repoIndex].likes
-  repositories[repoIndex] = { id, title, url, likes, tech }
+  repositories[repoIndex] = { id, title, url, likes, techs }
 
   return response.status(200).json(repositories[repoIndex])
 
